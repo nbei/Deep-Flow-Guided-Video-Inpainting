@@ -1,2 +1,5 @@
 # Deep-Flow-Guided-Video-Inpainting
-code will be released soon.
+[Paper](https://arxiv.org/pdf/1905.02884.pdf) [Project Page](nbei.github.io/video-inpainting.html)
+-------
+
+## Code will be released soon.
