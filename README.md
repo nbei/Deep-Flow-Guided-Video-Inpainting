@@ -2,4 +2,4 @@
 
 [Paper](https://arxiv.org/pdf/1905.02884.pdf)  and   [Project Page](https://nbei.github.io/video-inpainting.html)
 
-## Code will be released soon.
+## Code will be released around July 14th. Thanks for your interest in our work and sorry for the delay.
