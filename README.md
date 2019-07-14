@@ -23,7 +23,7 @@ There exist three components in this repo:
 ## Usage:
 * To use our video inpainting tool for object removing, we recommend that the frames should be put into `xxx/video_name/frames`
 and the mask of each frame should be put into `xxx/video_name/masks`. 
-And please download the resources of the demo and model weights from [here](https://drive.google.com/open?id=1a2FrHIQGExJTHXxSIibZOGMukNrypr_g).
+And please download the resources of the demo and model weights from [here](https://drive.google.com/drive/folders/1a2FrHIQGExJTHXxSIibZOGMukNrypr_g?usp=sharing).
 An example demo containing frames and masks has been put into the demo and running the following command will get the result:
 ```
 python tools/video_inpaint.py --frame_dir ./demo/frames --MASK_ROOT ./demo/masks --image_size 512 832 --FlowNet2 --DFC --ResNet101 --Propagation 
