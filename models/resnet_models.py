@@ -237,12 +237,8 @@ class ResNet(nn.Module):
         x = self.layer3(x)
         x = self.layer4(x)
 
-        if self.isRefine:
-            res1x, res2x, res4x = self.layer5(x, input_size)
-            return res1x, res2x, res4x
-        else:
-            res = self.layer5(x, input_size)
-            return res
+        res = self.layer5(x, input_size)
+        return res
 
     def train(self, mode=True, freezeBn=True):
         super(ResNet, self).train(mode=mode)
