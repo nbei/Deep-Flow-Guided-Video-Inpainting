@@ -1,7 +1,7 @@
 # Deep Flow-Guided Video Inpainting
 [CVPR 2019 Paper](https://arxiv.org/abs/1905.02884) | [Project Page](https://nbei.github.io/video-inpainting.html) | [YouTube](https://www.youtube.com/watch?v=LIJPUsrwx5E) | [BibeTex](#citing)
 
-<img src="https://github.com/nbei/release-DFVI/blob/master/gif/captain.gif" width="860"/>
+<img src="https://github.com/nbei/Deep-Flow-Guided-Video-Inpainting/blob/master/gif/captain.gif" width="860"/>
 
 ## Install & Requirements
 The code has been tested on pytorch=0.4.0 and python3.6. Please refer to `requirements.txt` for detailed information. 
@@ -28,7 +28,7 @@ An example demo containing frames and masks has been put into the demo and runni
 ```
 python tools/video_inpaint.py --frame_dir ./demo/frames --MASK_ROOT ./demo/masks --image_size 512 832 --FlowNet2 --DFC --ResNet101 --Propagation 
 ```
-<img src="https://github.com/nbei/release-DFVI/blob/master/gif/flamingo.gif" width="850"/>
+<img src="https://github.com/nbei/Deep-Flow-Guided-Video-Inpainting/blob/master/gif/flamingo.gif" width="850"/>
 
 We provide the original model weight used in our movie demo which use ResNet101 as backbone and other related weights pls download from [here](). 
 Please refer to [tools](https://github.com/nbei/release-DFVI/tree/master/tools) for detailed use and training settings. 
