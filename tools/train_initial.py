@@ -170,7 +170,6 @@ def main():
         fake_flow = flow1x * mask[:,10:12,:,:] + flow_masked[:,10:12,:,:] * (1. - mask[:,10:12,:,:])
         loss['1x_recon'] = L.L1_mask(flow1x[:,:,:,:], gt_flow[:,10:12,:,:], mask[:,10:12,:,:])
         loss['1x_recon_hard'], new_mask = L.L1_mask_hard_mining(flow1x, gt_flow[:,10:12,:,:], mask[:,10:11,:,:])
-        loss['diff_recon'] = loss['1x_recon'] - L.L1_mask(flow_masked[:,10:12,:,:], gt_flow[:,10:12,:,:], mask=mask[:,10:12,:,:])
 
         loss_total = loss['1x_recon'] + args.LAMBDA_HARD * loss['1x_recon_hard']
 

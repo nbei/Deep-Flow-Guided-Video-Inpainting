@@ -175,8 +175,6 @@ def main():
         loss['1x_recon'] += L.L1_mask(r_res, gt_flow[:, 2:, ...], mask[:, 32:34, ...])
         loss['f_recon_hard'], new_mask = L.L1_mask_hard_mining(f_res, gt_flow[:, :2,:,:], mask[:,10:11,:,:])
         loss['r_recon_hard'], new_mask = L.L1_mask_hard_mining(r_res, gt_flow[:, 2:, ...], mask[:, 32:33, ...])
-        loss['diff_recon'] = loss['1x_recon'] - L.L1_mask(flow_masked[:,10:12,:,:], gt_flow[:, :2,:,:], mask=mask[:,10:12,:,:])
-        loss['diff_recon'] -= L.L1_mask(flow_masked[:,32:34,:,:], gt_flow[:,2:4,:,:], mask=mask[:,32:34,:,:])
 
         loss_total = loss['1x_recon'] + args.LAMBDA_HARD * (loss['f_recon_hard'] + loss['r_recon_hard'])
 
