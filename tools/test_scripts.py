@@ -31,13 +31,13 @@ def parse_args():
 
     parser.add_argument('--FIX_MASK', action='store_true')
     parser.add_argument('--DATA_ROOT', type=str,
-                        default='/home/xurui/DATA/YouTubeVOS_2018/Flow_small/ytb_initial')
+                        default=None)
     parser.add_argument('--GT_FLOW_ROOT', type=str,
-                        default='/home/xurui/DATA/YouTubeVOS_2018/Flow/val')
+                        default=None)
 
     parser.add_argument('--MASK_MODE', type=str, default='bbox')
     parser.add_argument('--SAVE_FLOW', action='store_true')
-    parser.add_argument('--MASK_ROOT', type=str, default='/home/xurui/DATA/Video_Inpainting/Griffin/masks')
+    parser.add_argument('--MASK_ROOT', type=str, default=None)
 
     parser.add_argument('--IMAGE_SHAPE', type=int, default=[1024, 1024], nargs='+')
     parser.add_argument('--RES_SHAPE', type=int, default=[1024, 1024], nargs='+')
@@ -45,7 +45,7 @@ def parse_args():
     parser.add_argument('--ENLARGE_MASK', action='store_true')
     parser.add_argument('--PRETRAINED_MODEL', type=str, default=None)
     parser.add_argument('--INITIAL_HOLE', action='store_true')
-    parser.add_argument('--EVAL_LIST', type=str, default='/home/xurui/DATA/Video_Inpainting/Griffin/test_griffin_flow_seq.txt')
+    parser.add_argument('--EVAL_LIST', type=str, default=None)
     parser.add_argument('--PRINT_EVERY', type=int, default=10)
 
     parser.add_argument('--MASK_HEIGHT', type=int, default=120)

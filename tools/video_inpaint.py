@@ -43,7 +43,8 @@ def parse_argse():
     parser.add_argument('--SAVE_FLOW', action='store_true')
     parser.add_argument('--IMAGE_SHAPE', type=int, default=[240, 424], nargs='+')
     parser.add_argument('--RES_SHAPE', type=int, default=[240, 424], nargs='+')
-
+    parser.add_argument('--GT_FLOW_ROOT', type=str,
+                        default=None)
     parser.add_argument('--PRETRAINED_MODEL', type=str, default=None)
     parser.add_argument('--PRETRAINED_MODEL_1', type=str,
                         default='./pretrained_models/resnet101_movie.pth')

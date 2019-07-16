@@ -30,6 +30,8 @@ class FlowSeq(data.Dataset):
                     initial_flow_dir = [os.path.join(self.config.DATA_ROOT, x) for x in flow_dir]
                 if self.config.GT_FLOW_ROOT is not None:
                     gt_flow_dir = [os.path.join(self.config.GT_FLOW_ROOT, x) for x in flow_dir]
+                else:
+                    gt_flow_dir = initial_flow_dir
 
                 if self.config.get_mask:
                     mask_dir = line_split[22:44]
