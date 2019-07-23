@@ -30,7 +30,7 @@ python tools/video_inpaint.py --frame_dir ./demo/frames --MASK_ROOT ./demo/masks
 ```
 <img src="https://github.com/nbei/Deep-Flow-Guided-Video-Inpainting/blob/master/gif/flamingo.gif" width="850"/>
 
-We provide the original model weight used in our movie demo which use ResNet101 as backbone and other related weights pls download from [here](). 
+We provide the original model weight used in our movie demo which use ResNet101 as backbone and other related weights pls download from [here](https://drive.google.com/drive/folders/1a2FrHIQGExJTHXxSIibZOGMukNrypr_g?usp=sharing). 
 Please refer to [tools](https://github.com/nbei/Deep-Flow-Guided-Video-Inpainting/tree/master/tools) for detailed use and training settings. 
 * To extract flow for videos:
 ```
