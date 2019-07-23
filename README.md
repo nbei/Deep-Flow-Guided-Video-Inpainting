@@ -26,12 +26,12 @@ and the mask of each frame should be put into `xxx/video_name/masks`.
 And please download the resources of the demo and model weights from [here](https://drive.google.com/drive/folders/1a2FrHIQGExJTHXxSIibZOGMukNrypr_g?usp=sharing).
 An example demo containing frames and masks has been put into the demo and running the following command will get the result:
 ```
-python tools/video_inpaint.py --frame_dir ./demo/frames --MASK_ROOT ./demo/masks --image_size 512 832 --FlowNet2 --DFC --ResNet101 --Propagation 
+python tools/video_inpaint.py --frame_dir ./demo/frames --MASK_ROOT ./demo/masks --img_size 512 832 --FlowNet2 --DFC --ResNet101 --Propagation 
 ```
 <img src="https://github.com/nbei/Deep-Flow-Guided-Video-Inpainting/blob/master/gif/flamingo.gif" width="850"/>
 
 We provide the original model weight used in our movie demo which use ResNet101 as backbone and other related weights pls download from [here](). 
-Please refer to [tools](https://github.com/nbei/release-DFVI/tree/master/tools) for detailed use and training settings. 
+Please refer to [tools](https://github.com/nbei/Deep-Flow-Guided-Video-Inpainting/tree/master/tools) for detailed use and training settings. 
 * To extract flow for videos:
 ```
 python tools/infer_flownet2.py --frame_dir xxx/video_name/frames
