@@ -38,7 +38,7 @@ def parse_argse():
     parser.add_argument('--DATA_ROOT', type=str,
                         default=None)
     parser.add_argument('--MASK_ROOT', type=str, default=None)
-
+    parser.add_argument('--FIX_MASK', action='store_true')
     parser.add_argument('--MASK_MODE', type=str, default=None)
     parser.add_argument('--SAVE_FLOW', action='store_true')
     parser.add_argument('--IMAGE_SHAPE', type=int, default=[240, 424], nargs='+')
@@ -117,6 +117,7 @@ def flow_completion(args):
     args.flow_root = args.output_root
 
     if args.MS:
+        args.ResNet101 = False
         from tools.test_scripts import test_refine_stage
         args.PRETRAINED_MODEL = args.PRETRAINED_MODEL_2
         args.IMAGE_SHAPE = [320, 600]

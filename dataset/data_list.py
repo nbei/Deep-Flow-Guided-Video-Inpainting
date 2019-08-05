@@ -60,12 +60,12 @@ def gen_flow_refine_test_mask_list(flow_root, output_txt_path):
 
     assert flow_num > 11
 
-    for i in range(flow_start_no - 5, flow_start_no + flow_num - 5):
+    for i in range(flow_start_no - 5, flow_start_no + flow_num - 4):
         gt_flow_no = [0, 0]
         f_flow_no = []
         for k in range(11):
             flow_no = np.clip(i + k, a_min=flow_start_no, a_max=flow_start_no + flow_num - 1)
-            f_flow_no.append(f_flow_no)
+            f_flow_no.append(int(flow_no))
             output_txt.write('%05d.flo' % flow_no)
             if k == 5:
                 gt_flow_no[0] = flow_no
@@ -74,7 +74,7 @@ def gen_flow_refine_test_mask_list(flow_root, output_txt_path):
         r_flow_no = []
         for k in range(11):
             flow_no = np.clip(i + k, a_min=flow_start_no, a_max=flow_start_no + flow_num)
-            r_flow_no.append(flow_no)
+            r_flow_no.append(int(flow_no))
             if k == 5:
                 gt_flow_no[1] = flow_no
             output_txt.write('%05d.rflo' % flow_no)

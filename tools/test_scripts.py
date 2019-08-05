@@ -116,7 +116,9 @@ def test_initial_stage(args):
             res_save = res_complete[0].permute(1, 2, 0).contiguous().cpu().data.numpy()
             cvb.write_flow(res_save, output_file)
             task_bar.update()
-
+    sys.stdout.write('\n')
+    dfc_resnet = None
+    torch.cuda.empty_cache()
     print('Initial Results Saved in', args.output_root)
 
 
@@ -132,10 +134,10 @@ def test_refine_stage(args):
                                  num_workers=args.n_threads)
 
     if args.ResNet101:
-        dfc_resnet101 = resnet_models.Flow_Branch(33, 2)
+        dfc_resnet101 = resnet_models.Flow_Branch(66, 4)
         dfc_resnet = nn.DataParallel(dfc_resnet101).cuda()
     else:
-        dfc_resnet50 = resnet_models.Flow_Branch_Multi(input_chanels=33, NoLabels=2)
+        dfc_resnet50 = resnet_models.Flow_Branch_Multi(input_chanels=66, NoLabels=4)
         dfc_resnet = nn.DataParallel(dfc_resnet50).cuda()
 
     dfc_resnet.eval()
@@ -147,14 +149,12 @@ def test_refine_stage(args):
 
     task_bar = ProgressBar(eval_dataset.__len__())
     for i, item in enumerate(eval_dataloader):
-        if i > 1:
-            break
         with torch.no_grad():
             input_x = item[0].cuda()
             flow_masked = item[1].cuda()
             gt_flow = item[2].cuda()
             mask = item[3].cuda()
-            output_dir = item[3][0]
+            output_dir = item[4][0]
 
             res_flow = dfc_resnet(input_x)
 
@@ -177,7 +177,9 @@ def test_refine_stage(args):
             res_save_r = res_complete_r[0].permute(1, 2, 0).contiguous().cpu().data.numpy()
             cvb.write_flow(res_save_r, output_file_r)
             task_bar.update()
-
+    sys.stdout.write('\n')
+    dfc_resnet = None
+    torch.cuda.empty_cache()
     print('Refined Results Saved in', args.output_root)
 
 

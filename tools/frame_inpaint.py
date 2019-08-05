@@ -112,7 +112,8 @@ def main():
     test_image = cv2.imread(args.test_img)
     mask = cv2.imread(args.test_mask, cv2.IMREAD_UNCHANGED)
 
-    img_res = deepfill.forward(test_image, mask)
+    with torch.no_grad():
+        img_res = deepfill.forward(test_image, mask)
 
     cv2.imwrite(args.output_path, img_res)
     print('Result Saved')

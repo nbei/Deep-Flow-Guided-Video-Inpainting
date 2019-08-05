@@ -20,7 +20,7 @@ There exist three components in this repo:
 * Extract Flow: FlowNet2(modified by [Nvidia official version](https://github.com/NVIDIA/flownet2-pytorch/tree/python36-PyTorch0.4))
 * Image Inpainting(reimplemented from [Deepfillv1](https://github.com/JiahuiYu/generative_inpainting))
 
-## Usage:
+## Usage
 * To use our video inpainting tool for object removing, we recommend that the frames should be put into `xxx/video_name/frames`
 and the mask of each frame should be put into `xxx/video_name/masks`. 
 And please download the resources of the demo and model weights from [here](https://drive.google.com/drive/folders/1a2FrHIQGExJTHXxSIibZOGMukNrypr_g?usp=sharing).
@@ -36,11 +36,27 @@ Please refer to [tools](https://github.com/nbei/Deep-Flow-Guided-Video-Inpaintin
 ```
 python tools/infer_flownet2.py --frame_dir xxx/video_name/frames
 ```
+* For fixed region inpainting, we provide the model weights of refined stages in DAVIS. Please download the lady-running resources [link](https://drive.google.com/drive/folders/1GHV1g1IkpGa2qhRnZE2Fv30RXrbHPH0O?usp=sharing) and 
+model weights[link](https://drive.google.com/drive/folders/1zIamN-DzvknZLf5QAGCfvWs7a6qUqaaC?usp=sharing). The following command can help you to get the result:
+```
+CUDA_VISIBLE_DEVICES=0 python tools/video_inpaint.py --frame_dir ./demo/lady-running/frames \
+--MASK_ROOT ./demo/lady-running/mask_bbox.png \
+--img_size 448 896 --DFC --FlowNet2 --Propagation \
+--PRETRAINED_MODEL_1 ./pretrained_models/resnet50_stage1.pth \
+--PRETRAINED_MODEL_2 ./pretrained_models/DAVIS_model/davis_stage2.pth \
+--PRETRAINED_MODEL_3 ./pretrained_models/DAVIS_model/davis_stage3.pth \
+--MS --th_warp=3
+```
+<img src="https://github.com/nbei/Deep-Flow-Guided-Video-Inpainting/blob/master/gif/lady-running-res.gif" width="850"/>
 * To use the Deepfillv1-Pytorch model for image inpainting,
 ```
 python tools/frame_inpaint.py --test_img xxx.png --test_mask xxx.png --image_shape 512 512
 ```
 
+## Update
+* The frames and masks of our movie demo have been put into [Google Drive](https://drive.google.com/drive/folders/1z2n1LzVY8gjvy7ezF_tuuMgVouR_pFcz?usp=sharing).
+* The weights of DAVIS's refined stages have been released and you can download from [here](https://drive.google.com/drive/folders/1zIamN-DzvknZLf5QAGCfvWs7a6qUqaaC?usp=sharing).
+Please refer to [Usage](#Usage) for using the Multi-Scale models.
 ## FAQ
 * Errors when running install_scripts.sh
 if you meet some problem about gcc when compiling, pls check if the following commands will help:

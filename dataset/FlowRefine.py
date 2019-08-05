@@ -35,7 +35,11 @@ class FlowSeq(data.Dataset):
 
                 if self.config.get_mask:
                     mask_dir = line_split[22:44]
-                    mask_dir = [os.path.join(self.config.MASK_ROOT, x) for x in mask_dir]
+                    if not self.config.FIX_MASK:
+                        mask_dir = [os.path.join(self.config.MASK_ROOT, x) for x in mask_dir]
+                    else:
+                        mask_dir = [os.path.join(self.config.MASK_ROOT) for x in mask_dir]
+
                 video_class_no = int(line_split[-1])
 
                 if isTest:

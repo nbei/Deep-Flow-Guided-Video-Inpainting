@@ -61,7 +61,7 @@ def infer(args):
         flow_numpy = flow[0].permute(1, 2, 0).data.cpu().numpy()
         cvb.write_flow(flow_numpy, output_path)
         task_bar.update()
-
+    sys.stdout.write('\n')
     print('FlowNet2 Inference has been finished~!')
     print('Extracted Flow has been save in', output_file)
 

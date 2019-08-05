@@ -1,6 +1,7 @@
 import sys, argparse, os, time
 sys.path.append(os.path.abspath(os.path.join(__file__, '..', '..')))
 
+import torch
 import cv2
 import numpy as np
 from mmcv import ProgressBar
@@ -28,6 +29,8 @@ def parse_args():
     parser.add_argument('--pretrained_model_inpaint', type=str,
                         default='./pretrained_models/imagenet_deepfill.pth')
 
+    parser.add_argument('--FIX_MASK', action='store_true')
+
     args = parser.parse_args()
 
     return args
@@ -41,9 +44,9 @@ def propagation(args, frame_inapint_model=None):
     flow_root = args.flow_root
     output_root = args.output_root_propagation
 
-    print(img_root)
-    print(args.img_shape)
-    print(mask_root)
+    # print(img_root)
+    # print(args.img_shape)
+    # print(mask_root)
 
     # the shape list may be changed in the below, pls check it
     img_shape = args.img_shape
@@ -56,7 +59,7 @@ def propagation(args, frame_inapint_model=None):
 
     flow_no_list = [int(x[:5]) for x in os.listdir(flow_root) if '.flo' in x]
     flow_start_no = min(flow_no_list)
-    print('Flow Start no', flow_start_no)
+    # print('Flow Start no', flow_start_no)
     if not os.path.exists(output_root):
         os.makedirs(output_root)
 
@@ -100,8 +103,12 @@ def propagation(args, frame_inapint_model=None):
         if iter_num == 0:
             image = cv2.imread(os.path.join(img_root, frame_name_list[0]))
             image = cv2.resize(image, (shape[1], shape[0]))
-            label = cv2.imread(
-                os.path.join(mask_root, '%05d.png' % (0 + flow_start_no)), cv2.IMREAD_UNCHANGED)
+            if args.FIX_MASK:
+                label = cv2.imread(
+                    os.path.join(mask_root), cv2.IMREAD_UNCHANGED)
+            else:
+                label = cv2.imread(
+                    os.path.join(mask_root, '%05d.png' % (0 + flow_start_no)), cv2.IMREAD_UNCHANGED)
             label = cv2.resize(label, (image.shape[1], image.shape[0]), interpolation=cv2.INTER_NEAREST)
         else:
             image = result_pool[0]
@@ -133,8 +140,12 @@ def propagation(args, frame_inapint_model=None):
             flow2 = flo.flow_tf(flow2, image.shape)
 
             if iter_num == 0:
-                label = cv2.imread(
-                    os.path.join(mask_root, '%05d.png' % (th + flow_start_no)), cv2.IMREAD_UNCHANGED)
+                if not args.FIX_MASK:
+                    label = cv2.imread(
+                        os.path.join(mask_root, '%05d.png' % (th + flow_start_no)), cv2.IMREAD_UNCHANGED)
+                else:
+                    label = cv2.imread(
+                        os.path.join(mask_root), cv2.IMREAD_UNCHANGED)
                 label = cv2.resize(label, (image.shape[1], image.shape[0]), interpolation=cv2.INTER_NEAREST)
             else:
                 label = label_pool[th]
@@ -172,9 +183,14 @@ def propagation(args, frame_inapint_model=None):
                 os.path.join(img_root, frame_name_list[frames_num - 1]))
             image = cv2.resize(image, (shape[1], shape[0]))
 
-            label = cv2.imread(
-                os.path.join(mask_root, '%05d.png' % (frames_num - 1 + flow_start_no)),
-                cv2.IMREAD_UNCHANGED)
+            if not args.FIX_MASK:
+                label = cv2.imread(
+                    os.path.join(mask_root, '%05d.png' % (frames_num - 1 + flow_start_no)),
+                    cv2.IMREAD_UNCHANGED)
+            else:
+                label = cv2.imread(
+                    os.path.join(mask_root),
+                    cv2.IMREAD_UNCHANGED)
             label = cv2.resize(label, (image.shape[1], image.shape[0]), interpolation=cv2.INTER_NEAREST)
         else:
             image = result_pool[-1]
@@ -197,8 +213,12 @@ def propagation(args, frame_inapint_model=None):
             if iter_num == 0:
                 image = cv2.imread(os.path.join(img_root, frame_name_list[th]))
                 image = cv2.resize(image, (shape[1], shape[0]))
-                label = cv2.imread(
-                    os.path.join(mask_root, '%05d.png' % (th + flow_start_no)), cv2.IMREAD_UNCHANGED)
+                if not args.FIX_MASK:
+                    label = cv2.imread(
+                        os.path.join(mask_root, '%05d.png' % (th + flow_start_no)), cv2.IMREAD_UNCHANGED)
+                else:
+                    label = cv2.imread(
+                        os.path.join(mask_root), cv2.IMREAD_UNCHANGED)
                 label = cv2.resize(label, (image.shape[1], image.shape[0]), interpolation=cv2.INTER_NEAREST)
             else:
                 image = result_pool[th]
@@ -276,7 +296,8 @@ def propagation(args, frame_inapint_model=None):
             key_frame_ids = get_key_ids(frame_inpaint_seq)
             print(key_frame_ids)
             for id in key_frame_ids:
-                tmp_inpaint_res = frame_inapint_model.forward(result_pool[id], label_pool[id])
+                with torch.no_grad():
+                    tmp_inpaint_res = frame_inapint_model.forward(result_pool[id], label_pool[id])
                 label_pool[id] = label_pool[id] * 0.
                 result_pool[id] = tmp_inpaint_res
         else:
