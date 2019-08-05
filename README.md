@@ -32,10 +32,7 @@ python tools/video_inpaint.py --frame_dir ./demo/frames --MASK_ROOT ./demo/masks
 
 We provide the original model weight used in our movie demo which use ResNet101 as backbone and other related weights pls download from [here](https://drive.google.com/drive/folders/1a2FrHIQGExJTHXxSIibZOGMukNrypr_g?usp=sharing). 
 Please refer to [tools](https://github.com/nbei/Deep-Flow-Guided-Video-Inpainting/tree/master/tools) for detailed use and training settings. 
-* To extract flow for videos:
-```
-python tools/infer_flownet2.py --frame_dir xxx/video_name/frames
-```
+
 * For fixed region inpainting, we provide the model weights of refined stages in DAVIS. Please download the lady-running resources [link](https://drive.google.com/drive/folders/1GHV1g1IkpGa2qhRnZE2Fv30RXrbHPH0O?usp=sharing) and 
 model weights[link](https://drive.google.com/drive/folders/1zIamN-DzvknZLf5QAGCfvWs7a6qUqaaC?usp=sharing). The following command can help you to get the result:
 ```
@@ -48,6 +45,12 @@ CUDA_VISIBLE_DEVICES=0 python tools/video_inpaint.py --frame_dir ./demo/lady-run
 --MS --th_warp=3
 ```
 <img src="https://github.com/nbei/Deep-Flow-Guided-Video-Inpainting/blob/master/gif/lady-running-res.gif" width="850"/>
+
+* To extract flow for videos:
+```
+python tools/infer_flownet2.py --frame_dir xxx/video_name/frames
+```
+
 * To use the Deepfillv1-Pytorch model for image inpainting,
 ```
 python tools/frame_inpaint.py --test_img xxx.png --test_mask xxx.png --image_shape 512 512
