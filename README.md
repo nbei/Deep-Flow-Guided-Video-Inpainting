@@ -45,7 +45,7 @@ CUDA_VISIBLE_DEVICES=0 python tools/video_inpaint.py --frame_dir ./demo/lady-run
 --MS --th_warp 3 --FIX_MASK
 ```
 <img src="https://github.com/nbei/Deep-Flow-Guided-Video-Inpainting/blob/master/gif/lady-running-res.gif" width="850"/>
-You can just change the *th_warp* param for getting better results in your video. 
+You can just change the **th_warp** param for getting better results in your video. 
 
 * To extract flow for videos:
 ```
