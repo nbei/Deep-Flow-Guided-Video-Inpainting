@@ -34,7 +34,7 @@ We provide the original model weight used in our movie demo which use ResNet101 
 Please refer to [tools](https://github.com/nbei/Deep-Flow-Guided-Video-Inpainting/tree/master/tools) for detailed use and training settings. 
 
 * For fixed region inpainting, we provide the model weights of refined stages in DAVIS. Please download the lady-running resources [link](https://drive.google.com/drive/folders/1GHV1g1IkpGa2qhRnZE2Fv30RXrbHPH0O?usp=sharing) and 
-model weights[link](https://drive.google.com/drive/folders/1zIamN-DzvknZLf5QAGCfvWs7a6qUqaaC?usp=sharing). The following command can help you to get the result:
+model weights [link](https://drive.google.com/drive/folders/1zIamN-DzvknZLf5QAGCfvWs7a6qUqaaC?usp=sharing). The following command can help you to get the result:
 ```
 CUDA_VISIBLE_DEVICES=0 python tools/video_inpaint.py --frame_dir ./demo/lady-running/frames \
 --MASK_ROOT ./demo/lady-running/mask_bbox.png \
@@ -42,10 +42,10 @@ CUDA_VISIBLE_DEVICES=0 python tools/video_inpaint.py --frame_dir ./demo/lady-run
 --PRETRAINED_MODEL_1 ./pretrained_models/resnet50_stage1.pth \
 --PRETRAINED_MODEL_2 ./pretrained_models/DAVIS_model/davis_stage2.pth \
 --PRETRAINED_MODEL_3 ./pretrained_models/DAVIS_model/davis_stage3.pth \
---MS --th_warp=3 --FIX_MASK
+--MS --th_warp 3 --FIX_MASK
 ```
 <img src="https://github.com/nbei/Deep-Flow-Guided-Video-Inpainting/blob/master/gif/lady-running-res.gif" width="850"/>
-
+You can just change the `th_warp` param for getting better results in your video. 
 * To extract flow for videos:
 ```
 python tools/infer_flownet2.py --frame_dir xxx/video_name/frames
