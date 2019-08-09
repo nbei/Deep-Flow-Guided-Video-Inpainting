@@ -14,7 +14,7 @@ For fixed-region(mid-bbox) inpainting, we give further guidance for your referen
 1. For initial stage(stage 1). Firstly, you should generate the data list which is much more similar with the testing list.
 However, you should remove the output dir in the data list which is the second to last item. And then you can use the following command:
 ```
-CUDA_VISIBLE_DEVICES=xxxxx python tools/train_initial.py --model_name stage1 --FIX_MASK --MASK_MODE mid-bbox --TRAIN_LIST path_to_train_datalist --DATA_ROOT path_to_input_flow --GT_FLOW_ROOT path_to_gt_flow --INITIAL_HOLE
+CUDA_VISIBLE_DEVICES=xxxxx python tools/train_initial.py --model_name stage1 --FIX_MASK --MASK_MODE mid-bbox --TRAIN_LIST path_to_train_datalist --DATA_ROOT path_to_input_flow --INITIAL_HOLE
 ```
 2. For Refine stage(stage2 and stage3). For convenient and quick loading data, we first extract the flow by using stage1 network and then use 
 these results as the input of the next stage.
