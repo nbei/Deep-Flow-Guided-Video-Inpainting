@@ -252,7 +252,7 @@ class Contextual_Attention_Module(nn.Module):
         kernel = 2*self.rate
         raw_w = self.extract_patches(b, kernel=kernel, stride=self.rate)
         raw_w = raw_w.permute(0, 2, 3, 4, 5, 1)
-        raw_w = raw_w.contiguous().view(raw_int_bs[0], raw_int_bs[2] / self.rate, raw_int_bs[3] / self.rate, -1)
+        raw_w = raw_w.contiguous().view(raw_int_bs[0], raw_int_bs[2] // self.rate, raw_int_bs[3] // self.rate, -1)
         raw_w = raw_w.contiguous().view(raw_int_bs[0], -1, kernel, kernel, raw_int_bs[1])
         raw_w = raw_w.permute(0, 1, 4, 2, 3)
 
@@ -268,7 +268,7 @@ class Contextual_Attention_Module(nn.Module):
         int_bs = list(b.size())
         w = self.extract_patches(b)
         w = w.permute(0, 2, 3, 4, 5, 1)
-        w = w.contiguous().view(raw_int_bs[0], raw_int_bs[2] / self.rate, raw_int_bs[3] / self.rate, -1)
+        w = w.contiguous().view(raw_int_bs[0], raw_int_bs[2] // self.rate, raw_int_bs[3] // self.rate, -1)
         w = w.contiguous().view(raw_int_bs[0], -1, ksize, ksize, raw_int_bs[1])
         w = w.permute(0, 1, 4, 2, 3)
         # process mask
@@ -282,7 +282,7 @@ class Contextual_Attention_Module(nn.Module):
         m = self.extract_patches(mask)
 
         m = m.permute(0, 2, 3, 4, 5, 1)
-        m = m.contiguous().view(raw_int_bs[0], raw_int_bs[2]/self.rate, raw_int_bs[3]/self.rate, -1)
+        m = m.contiguous().view(raw_int_bs[0], raw_int_bs[2]//self.rate, raw_int_bs[3]//self.rate, -1)
         m = m.contiguous().view(raw_int_bs[0], -1, ksize, ksize, 1)
         m = m.permute(0, 4, 1, 2, 3)
 
@@ -398,28 +398,35 @@ def l2_norm(x):
     x = reduce_sum(x)
     return torch.sqrt(x)
 
-
+    
+# Pytorch>=0.4.1, when use the old down_sample func, I found some problems in the results
+# to check the reason
 def down_sample(x, size=None, scale_factor=None, mode='nearest', device=None):
-    # define size if user has specified scale_factor
-    if size is None: size = (int(scale_factor*x.size(2)), int(scale_factor*x.size(3)))
-    # create coordinates
-    # size_origin = [x.size[2], x.size[3]]
-    h = torch.arange(0, size[0]) / (size[0]) * 2 - 1
-    w = torch.arange(0, size[1]) / (size[1]) * 2 - 1
-    # create grid
-    grid =torch.zeros(size[0],size[1],2)
-    grid[:,:,0] = w.unsqueeze(0).repeat(size[0],1)
-    grid[:,:,1] = h.unsqueeze(0).repeat(size[1],1).transpose(0,1)
-    # expand to match batch size
-    grid = grid.unsqueeze(0).repeat(x.size(0),1,1,1)
-    if x.is_cuda:
-        if device:
-            grid = Variable(grid).cuda(device)
-        else:
-            grid = Variable(grid).cuda()
-    # do sampling
+    res = F.interpolate(x, scale_factor=scale_factor, mode=mode)
+    return res
 
-    return F.grid_sample(x, grid, mode=mode)
+
+# def down_sample(x, size=None, scale_factor=None, mode='nearest', device=None):
+#     # define size if user has specified scale_factor
+#     if size is None: size = (int(scale_factor*x.size(2)), int(scale_factor*x.size(3)))
+#     # create coordinates
+#     # size_origin = [x.size[2], x.size[3]]
+#     h = torch.arange(0, size[0]) / (size[0]) * 2 - 1
+#     w = torch.arange(0, size[1]) / (size[1]) * 2 - 1
+#     # create grid
+#     grid =torch.zeros(size[0],size[1],2)
+#     grid[:,:,0] = w.unsqueeze(0).repeat(size[0],1)
+#     grid[:,:,1] = h.unsqueeze(0).repeat(size[1],1).transpose(0,1)
+#     # expand to match batch size
+#     grid = grid.unsqueeze(0).repeat(x.size(0),1,1,1)
+#     if x.is_cuda:
+#         if device:
+#             grid = Variable(grid).cuda(device)
+#         else:
+#             grid = Variable(grid).cuda()
+#     # do sampling
+
+#     return F.grid_sample(x, grid, mode=mode)
 
 
 def to_var(x, volatile=False, device=None):
