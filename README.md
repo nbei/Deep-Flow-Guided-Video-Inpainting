@@ -58,6 +58,8 @@ python tools/frame_inpaint.py --test_img xxx.png --test_mask xxx.png --image_sha
 ```
 
 ## Update
+* **Support for PyTorch>1.0:** Sorry for the late update and the pre-release verison for supporting PyTorch>1.0 has been integrated into our new [v1.1 branch](https://github.com/nbei/Deep-Flow-Guided-Video-Inpainting/tree/v1.1).
+
 * The frames and masks of our movie demo have been put into [Google Drive](https://drive.google.com/drive/folders/1z2n1LzVY8gjvy7ezF_tuuMgVouR_pFcz?usp=sharing).
 * The weights of DAVIS's refined stages have been released and you can download from [here](https://drive.google.com/drive/folders/1zIamN-DzvknZLf5QAGCfvWs7a6qUqaaC?usp=sharing).
 Please refer to [Usage](#Usage) for using the Multi-Scale models.
