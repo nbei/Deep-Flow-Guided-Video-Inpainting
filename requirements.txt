@@ -11,7 +11,7 @@ mmcv==0.2.10
 numpy==1.16.4
 olefile==0.46
 opencv-python==4.1.0.25
-Pillow==6.0.0
+Pillow==6.2.0
 protobuf==3.8.0
 pycparser==2.19
 PyYAML==5.1.1
