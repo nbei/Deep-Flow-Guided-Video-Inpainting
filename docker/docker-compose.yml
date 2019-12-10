@@ -12,5 +12,8 @@ services:
  
     volumes:
       - ../:/inpainting
+    shm_size: '4gb'
     runtime: nvidia
-    command: tail /dev/null -f
+    command: bash install_scripts.sh
+
+    command: bash -c "bash install_scripts.sh && tail /dev/null -f"

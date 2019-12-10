@@ -116,3 +116,5 @@ venv.bak/
 *.jpg
 *.png
 *.txt
+*.rflo
+*.flo
