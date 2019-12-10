@@ -112,3 +112,7 @@ venv.bak/
 .mypy_cache/
 
 *.o
+
+*.jpg
+*.png
+*.txt

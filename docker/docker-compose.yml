@@ -12,6 +12,5 @@ services:
  
     volumes:
       - ../:/inpainting
-    privileged: true
     runtime: nvidia
     command: tail /dev/null -f

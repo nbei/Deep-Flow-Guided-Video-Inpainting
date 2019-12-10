@@ -1,4 +1,4 @@
-FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:8.0-cudnn7-devel-ubuntu16.04
 
 # RUN apt update -y; apt install -y software-properties-common
 # RUN add-apt-repository -y ppa:deadsnakes/ppa
@@ -9,7 +9,13 @@ FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 # echo 'alias python="python3.6"' >> ~/.bashrc
 # source ~/.bashrc
 
-RUN apt update -y; apt install -y python3 python3-pip
+RUN apt update -y; apt install -y \
+python3 \
+python3-pip \
+libglib2.0-0 \
+libsm6 \
+libxext6 \
+libxrender-dev
 
 RUN pip3 install \
 addict==2.2.1 \
