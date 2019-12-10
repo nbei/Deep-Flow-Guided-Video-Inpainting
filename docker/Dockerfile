@@ -1,14 +1,5 @@
 FROM nvidia/cuda:8.0-cudnn7-devel-ubuntu16.04
 
-# RUN apt update -y; apt install -y software-properties-common
-# RUN add-apt-repository -y ppa:deadsnakes/ppa
-# RUN apt update
-# RUN apt install -y python3.6 \
-# python3-pip
-
-# echo 'alias python="python3.6"' >> ~/.bashrc
-# source ~/.bashrc
-
 RUN apt update -y; apt install -y \
 python3 \
 python3-pip \
@@ -46,5 +37,4 @@ urllib3==1.25.3
 
 RUN pip3 install mmcv==0.2.10
 
-#RUN bash install_scripts.sh
 
