@@ -1,0 +1,17 @@
+version: '2.3'
+
+services:
+
+  inpainting:
+    image: inpainting
+    container_name: inpainting
+    working_dir: /inpainting
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+ 
+    volumes:
+      - ../:/inpainting
+    privileged: true
+    runtime: nvidia
+    command: tail /dev/null -f
