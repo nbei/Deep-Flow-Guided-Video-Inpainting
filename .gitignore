@@ -111,3 +111,10 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+*.o
+
+*.jpg
+*.png
+*.rflo
+*.flo
+demo/

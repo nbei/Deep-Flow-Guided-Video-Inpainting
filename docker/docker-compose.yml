@@ -1,0 +1,19 @@
+version: '2.3'
+
+services:
+
+  inpainting:
+    image: inpainting
+    container_name: inpainting
+    working_dir: /inpainting
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+ 
+    volumes:
+      - ../:/inpainting
+    shm_size: '4gb'
+    runtime: nvidia
+    command: bash install_scripts.sh
+
+    command: bash -c "bash install_scripts.sh && tail /dev/null -f"

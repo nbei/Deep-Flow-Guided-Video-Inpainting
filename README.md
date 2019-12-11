@@ -6,6 +6,8 @@
 ## Install & Requirements
 The code has been tested on pytorch=0.4.0 and python3.6. Please refer to `requirements.txt` for detailed information. 
 
+Alternatively, you can run it with the provided [Docker image](docker/README.md).
+
 **To Install python packages**
 ```
 pip install -r requirements.txt
