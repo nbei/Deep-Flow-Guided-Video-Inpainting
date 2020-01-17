@@ -12,14 +12,13 @@ Alternatively, you can run it with the provided [Docker image](docker/README.md)
 ```
 pip install -r requirements.txt
 ```
-**To Install flownet2 modules**
-```
-bash install_scripts.sh
-```
+**To Install liteflownet modules**
+
+The correlation layer for LiteFlowNet is implemented in CUDA using CuPy. Install it using `pip install cupy` or install one of the provided binaries (listed [here](https://docs-cupy.chainer.org/en/stable/install.html#install-cupy)).
 ## Componets
 There exist three components in this repo:
 * Video Inpainting Tool: DFVI
-* Extract Flow: FlowNet2(modified by [Nvidia official version](https://github.com/NVIDIA/flownet2-pytorch/tree/python36-PyTorch0.4))
+* Extract Flow: LiteFlowNet(modified by [Pytorch version](https://github.com/sniklaus/pytorch-liteflownet))
 * Image Inpainting(reimplemented from [Deepfillv1](https://github.com/JiahuiYu/generative_inpainting))
 
 ## Usage
@@ -32,7 +31,7 @@ python tools/video_inpaint.py --frame_dir ./demo/frames --MASK_ROOT ./demo/masks
 ```
 <img src="https://github.com/nbei/Deep-Flow-Guided-Video-Inpainting/blob/master/gif/flamingo.gif" width="850"/>
 
-We provide the original model weight used in our movie demo which use ResNet101 as backbone and other related weights pls download from [here](https://drive.google.com/drive/folders/1a2FrHIQGExJTHXxSIibZOGMukNrypr_g?usp=sharing). 
+We provide the original model weight used in our movie demo which use ResNet101 as backbone and other related weights pls download from [here](https://drive.google.com/drive/folders/1a2FrHIQGExJTHXxSIibZOGMukNrypr_g?usp=sharing). Weights for LiteFlowNet are hosted by [sniklaus](https://github.com/sniklaus): [default](http://content.sniklaus.com/github/pytorch-liteflownet/network-default.pytorch), [kitti](http://content.sniklaus.com/github/pytorch-liteflownet/network-kitti.pytorch), [sintel](http://content.sniklaus.com/github/pytorch-liteflownet/network-sintel.pytorch).
 Please refer to [tools](https://github.com/nbei/Deep-Flow-Guided-Video-Inpainting/tree/master/tools) for detailed use and training settings. 
 
 * For fixed region inpainting, we provide the model weights of refined stages in DAVIS. Please download the lady-running resources [link](https://drive.google.com/drive/folders/1GHV1g1IkpGa2qhRnZE2Fv30RXrbHPH0O?usp=sharing) and 
