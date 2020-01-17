@@ -11,10 +11,10 @@ def parse_argse():
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset_root', type=str,
                         default=None)
-    # FlowNet2
-    parser.add_argument('--FlowNet2', action='store_true')
-    parser.add_argument('--pretrained_model_flownet2', type=str,
-                        default='./pretrained_models/FlowNet2_checkpoint.pth.tar')
+    # LiteFlowNet
+    parser.add_argument('--LiteFlowNet', action='store_true')
+    parser.add_argument('--pretrained_model_liteflownet', type=str,
+                        default='./pretrained_models/sintel.pth')
     parser.add_argument('--img_size', type=int, nargs='+',
                         default=None)
     parser.add_argument('--rgb_max', type=float, default=255.)
@@ -29,7 +29,7 @@ def parse_argse():
     parser.add_argument('--ResNet101', action='store_true')
     parser.add_argument('--MS', action='store_true')
     parser.add_argument('--batch_size', type=int, default=1)
-    parser.add_argument('--n_threads', type=int, default=16)
+    parser.add_argument('--n_threads', type=int, default=8)
 
     parser.add_argument('--get_mask', action='store_true')
     parser.add_argument('--output_root', type=str,
@@ -81,7 +81,7 @@ def parse_argse():
 
 
 def extract_flow(args):
-    from tools.infer_flownet2 import infer
+    from tools.infer_liteflownet import infer
     output_file = infer(args)
     flow_list = [x for x in os.listdir(output_file) if '.flo' in x]
     flow_start_no = min([int(x[:5]) for x in flow_list])
@@ -162,7 +162,7 @@ def main():
 
     if args.frame_dir is not None:
         args.dataset_root = os.path.dirname(args.frame_dir)
-    if args.FlowNet2:
+    if args.LiteFlowNet:
         extract_flow(args)
 
     if args.DFC:

@@ -4,7 +4,8 @@ sys.path.append(os.path.abspath(os.path.join(__file__, '..', '..')))
 import torch
 import cv2
 import numpy as np
-from mmcv import ProgressBar
+#from mmcv import ProgressBar
+from tqdm import tqdm
 from utils import flow as flo
 
 from tools.frame_inpaint import DeepFillv1
@@ -125,9 +126,9 @@ def propagation(args, frame_inapint_model=None):
 
         results[0][..., 0] = image
         time_stamp[0][label == 0, 0] = 0
-        prog_bar = ProgressBar(frames_num-1)
-        for th in range(1, frames_num):
-            prog_bar.update()
+        #prog_bar = ProgressBar(frames_num-1)
+        for th in tqdm(range(1, frames_num)):
+            #prog_bar.update()
             if iter_num == 0:
                 image = cv2.imread(os.path.join(img_root, frame_name_list[th]))
                 image = cv2.resize(image, (shape[1], shape[0]))
@@ -207,9 +208,9 @@ def propagation(args, frame_inapint_model=None):
 
         results[frames_num - 1][..., 1] = image
         time_stamp[frames_num - 1][label == 0, 1] = frames_num - 1
-        prog_bar = ProgressBar(frames_num-1)
-        for th in range(frames_num - 2, -1, -1):
-            prog_bar.update()
+        #prog_bar = ProgressBar(frames_num-1)
+        for th in tqdm(range(frames_num - 2, -1, -1)):
+            #prog_bar.update()
             if iter_num == 0:
                 image = cv2.imread(os.path.join(img_root, frame_name_list[th]))
                 image = cv2.resize(image, (shape[1], shape[0]))
@@ -257,9 +258,9 @@ def propagation(args, frame_inapint_model=None):
         tmp_label_seq = np.zeros(frames_num-1)
         print('Iter', iter_num, 'Merge Results')
         # merge
-        prog_bar = ProgressBar(frames_num)
-        for th in range(0, frames_num - 1):
-            prog_bar.update()
+        #prog_bar = ProgressBar(frames_num)
+        for th in tqdm(range(0, frames_num - 1)):
+            #prog_bar.update()
             v1 = (time_stamp[th][..., 0] == -1)
             v2 = (time_stamp[th][..., 1] == -1)
 
