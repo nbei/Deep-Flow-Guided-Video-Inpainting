@@ -27,7 +27,7 @@ and the mask of each frame should be put into `xxx/video_name/masks`.
 And please download the resources of the demo and model weights from [here](https://drive.google.com/drive/folders/1a2FrHIQGExJTHXxSIibZOGMukNrypr_g?usp=sharing).
 An example demo containing frames and masks has been put into the demo and running the following command will get the result:
 ```
-python tools/video_inpaint.py --frame_dir ./demo/frames --MASK_ROOT ./demo/masks --img_size 512 832 --FlowNet2 --DFC --ResNet101 --Propagation 
+python tools/video_inpaint.py --frame_dir ./demo/frames --MASK_ROOT ./demo/masks --img_size 512 832 --LiteFlowNet --DFC --ResNet101 --Propagation 
 ```
 <img src="https://github.com/nbei/Deep-Flow-Guided-Video-Inpainting/blob/master/gif/flamingo.gif" width="850"/>
 
@@ -39,7 +39,7 @@ model weights [link](https://drive.google.com/drive/folders/1zIamN-DzvknZLf5QAGC
 ```
 CUDA_VISIBLE_DEVICES=0 python tools/video_inpaint.py --frame_dir ./demo/lady-running/frames \
 --MASK_ROOT ./demo/lady-running/mask_bbox.png \
---img_size 448 896 --DFC --FlowNet2 --Propagation \
+--img_size 448 896 --DFC --LiteFlowNet --Propagation \
 --PRETRAINED_MODEL_1 ./pretrained_models/resnet50_stage1.pth \
 --PRETRAINED_MODEL_2 ./pretrained_models/DAVIS_model/davis_stage2.pth \
 --PRETRAINED_MODEL_3 ./pretrained_models/DAVIS_model/davis_stage3.pth \
@@ -50,7 +50,7 @@ You can just change the **th_warp** param for getting better results in your vid
 
 * To extract flow for videos:
 ```
-python tools/infer_flownet2.py --frame_dir xxx/video_name/frames
+python tools/infer_liteflownet.py --frame_dir xxx/video_name/frames
 ```
 
 * To use the Deepfillv1-Pytorch model for image inpainting,
