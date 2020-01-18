@@ -18,7 +18,7 @@ The correlation layer for LiteFlowNet is implemented in CUDA using CuPy. Install
 ## Componets
 There exist three components in this repo:
 * Video Inpainting Tool: DFVI
-* Extract Flow: LiteFlowNet(modified by [Pytorch version](https://github.com/sniklaus/pytorch-liteflownet))
+* Extract Flow: LiteFlowNet([Pytorch version](https://github.com/sniklaus/pytorch-liteflownet) reimplemented from [LiteFlowNet](https://github.com/twhui/LiteFlowNet))
 * Image Inpainting(reimplemented from [Deepfillv1](https://github.com/JiahuiYu/generative_inpainting))
 
 ## Usage
