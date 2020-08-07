@@ -4,7 +4,7 @@
 <img src="https://github.com/nbei/Deep-Flow-Guided-Video-Inpainting/blob/master/gif/captain.gif" width="860"/>
 
 ## Install & Requirements
-The code has been tested on pytorch=0.4.0 and python3.6. Please refer to `requirements.txt` for detailed information. 
+The code has been tested on pytorch=1.3.0 and python3.6. Please refer to `requirements.txt` for detailed information. 
 
 Alternatively, you can run it with the provided [Docker image](docker/README.md).
 
