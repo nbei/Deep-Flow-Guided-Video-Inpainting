@@ -74,7 +74,7 @@ class FlowSeq(data.Dataset):
             tmp_flow = cvb.read_flow(flow_dir[i])
             if self.config.get_mask:
                 tmp_mask = cv2.imread(mask_dir[i],
-                                      cv2.IMREAD_UNCHANGED)
+                                      cv2.IMREAD_COLOR)
                 tmp_mask = self._mask_tf(tmp_mask)
             else:
                 if self.config.FIX_MASK:
