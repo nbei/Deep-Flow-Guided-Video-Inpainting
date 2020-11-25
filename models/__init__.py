@@ -1,2 +1,2 @@
-from .FlowNet2_Models.FlowNet2 import *
+from .LiteFlowNet_Models.LiteFlowNet import *
 from .DeepFill_Models import DeepFill

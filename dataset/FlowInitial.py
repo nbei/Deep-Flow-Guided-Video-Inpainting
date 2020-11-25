@@ -74,7 +74,7 @@ class FlowSeq(data.Dataset):
             tmp_flow = cvb.read_flow(flow_dir[i])
             if self.config.get_mask:
                 tmp_mask = cv2.imread(mask_dir[i],
-                                      cv2.IMREAD_UNCHANGED)
+                                      cv2.IMREAD_COLOR)
                 tmp_mask = self._mask_tf(tmp_mask)
             else:
                 if self.config.FIX_MASK:
@@ -89,7 +89,7 @@ class FlowSeq(data.Dataset):
 
             if self.config.INITIAL_HOLE:
                 tmp_flow_resized = cv2.resize(tmp_flow, (self.size[1] // 2, self.size[0] // 2))
-                tmp_mask_resized = cv2.resize(tmp_mask, (self.size[1] // 2, self.size[0] // 2), cv2.INTER_NEAREST)
+                tmp_mask_resized = cv2.resize(tmp_mask, (self.size[1] // 2, self.size[0] // 2), interpolation=cv2.INTER_NEAREST)
                 tmp_flow_masked_small = tmp_flow_resized
                 tmp_flow_masked_small[:, :, 0] = rf.regionfill(tmp_flow_resized[:, :, 0], tmp_mask_resized)
                 tmp_flow_masked_small[:, :, 1] = rf.regionfill(tmp_flow_resized[:, :, 1], tmp_mask_resized)

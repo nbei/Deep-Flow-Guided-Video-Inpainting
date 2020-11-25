@@ -30,8 +30,8 @@ scipy==1.2.1 \
 six==1.12.0 \
 tensorboardX==1.8 \
 terminaltables==3.1.0 \
-torch==0.4.0 \
-torchvision==0.2.1 \
+torch==1.3.0 \
+torchvision==0.4.0 \
 tqdm==4.32.1 \
 urllib3==1.25.3
 

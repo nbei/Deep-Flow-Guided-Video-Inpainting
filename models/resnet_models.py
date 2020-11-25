@@ -127,23 +127,23 @@ class FlowBranch_Layer(nn.Module):
     def forward(self, x, input_size):
         x = self.upconv1(x)
         x = self.relu(x)
-        x = F.upsample(x, (input_size[0] // 4, input_size[1] // 4), mode='bilinear', align_corners=False)
+        x = F.interpolate(x, (input_size[0] // 4, input_size[1] // 4), mode='bilinear', align_corners=False)
         x = self.upconv2(x)
         x = self.relu(x)
 
         res_4x = self.conv1_flow(x)
 
-        x = F.upsample(x, scale_factor=2, mode='bilinear', align_corners=False)
+        x = F.interpolate(x, scale_factor=2, mode='bilinear', align_corners=False)
         x = self.conv2_flow(x)
         x = self.relu(x)
-        res_4x_up = F.upsample(res_4x, scale_factor=2, mode='bilinear', align_corners=False)
+        res_4x_up = F.interpolate(res_4x, scale_factor=2, mode='bilinear', align_corners=False)
         conv3_input = torch.cat([x, res_4x_up], dim=1)
         res_2x = self.conv3_flow(conv3_input)
 
-        x = F.upsample(x, scale_factor=2, mode='bilinear', align_corners=False)
+        x = F.interpolate(x, scale_factor=2, mode='bilinear', align_corners=False)
         x = self.conv4_flow(x)
         x = self.relu(x)
-        res_2x_up = F.upsample(res_2x, scale_factor=2, mode='bilinear', align_corners=False)
+        res_2x_up = F.interpolate(res_2x, scale_factor=2, mode='bilinear', align_corners=False)
         conv5_input = torch.cat([x, res_2x_up], dim=1)
         res_1x = self.conv5_flow(conv5_input)
 
@@ -160,14 +160,14 @@ class FlowModule_MultiScale(nn.Module):
         self.conv3 = nn.Conv2d(128, NoLabels, kernel_size=1, padding=0)
 
     def forward(self, x, res_size):
-        x = F.upsample(x, (res_size[0] // 4, res_size[1] // 4), mode='bilinear', align_corners=False)
+        x = F.interpolate(x, (res_size[0] // 4, res_size[1] // 4), mode='bilinear', align_corners=False)
 
         x = self.conv1(x)
         x = self.relu(x)
-        x = F.upsample(x, (res_size[0] // 2, res_size[1] // 2), mode='bilinear', align_corners=False)
+        x = F.interpolate(x, (res_size[0] // 2, res_size[1] // 2), mode='bilinear', align_corners=False)
         x = self.conv2(x)
         x = self.relu(x)
-        x = F.upsample(x, res_size, mode='bilinear', align_corners=False)
+        x = F.interpolate(x, res_size, mode='bilinear', align_corners=False)
         x = self.conv3(x)
 
         return x
@@ -181,7 +181,7 @@ class FlowModule_SingleScale(nn.Module):
 
     def forward(self, x, res_size):
         x = self.conv1(x)
-        x = F.upsample(x, res_size, mode='bilinear')
+        x = F.interpolate(x, res_size, mode='bilinear', align_corners=False)
 
         return x
 

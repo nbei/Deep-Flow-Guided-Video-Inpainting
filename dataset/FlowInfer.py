@@ -2,6 +2,7 @@ import torch
 import cv2
 import numpy as np
 import torch.utils.data
+from PIL import Image
 
 
 class FlowInfer(torch.utils.data.Dataset):
@@ -34,22 +35,20 @@ class FlowInfer(torch.utils.data.Dataset):
         return len(self.frame1_list)
 
     def __getitem__(self, idx):
-        frame1 = cv2.imread(self.frame1_list[idx])
-        frame2 = cv2.imread(self.frame2_list[idx])
+        frame1 = np.array(self._img_tf(Image.open(self.frame1_list[idx])))/255
+        frame2 = np.array(self._img_tf(Image.open(self.frame2_list[idx])))/255
+
+        output_path = self.output_list[idx]
+
         if self.isRGB:
             frame1 = frame1[:, :, ::-1]
             frame2 = frame2[:, :, ::-1]
-        output_path = self.output_list[idx]
 
-        frame1 = self._img_tf(frame1)
-        frame2 = self._img_tf(frame2)
-
-        frame1_tensor = torch.from_numpy(frame1).permute(2, 0, 1).contiguous().float()
-        frame2_tensor = torch.from_numpy(frame2).permute(2, 0, 1).contiguous().float()
+        frame1_tensor = torch.from_numpy(frame1.transpose(2, 0, 1).copy()).contiguous().float()
+        frame2_tensor = torch.from_numpy(frame2.transpose(2, 0, 1).copy()).contiguous().float()
 
         return frame1_tensor, frame2_tensor, output_path
 
     def _img_tf(self, img):
-        img = cv2.resize(img, (self.size[1], self.size[0]))
-
-        return img
+        #img = cv2.resize(img, (self.size[1], self.size[0]))
+        return img.resize((self.size[0], self.size[1]), Image.BILINEAR)
