@@ -1,5 +1,5 @@
 addict==2.2.1
-certifi==2019.6.16
+certifi==2022.12.7
 cffi==1.12.3
 chardet==3.0.4
 cvbase==0.5.5
